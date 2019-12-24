@@ -177,27 +177,27 @@
  9
 10
 11
-12</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">quant_config</span> <span class="o">=</span> <span class="err">{</span>
-    <span class="s1">&#39;weight_quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;activation_quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;moving_average_abs_max&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;weight_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-    <span class="s1">&#39;activation_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-    <span class="s1">&#39;not_quant_pattern&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;skip_quant&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;quantize_op_types&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;conv2d&#39;</span><span class="p">,</span> <span class="s1">&#39;depthwise_conv2d&#39;</span><span class="p">,</span> <span class="s1">&#39;mul&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;window_size&#39;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
-    <span class="s1">&#39;moving_rate&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">9</span><span class="p">,</span>
-    <span class="s1">&#39;quant_weight_only&#39;</span><span class="p">:</span> <span class="k">False</span>
-<span class="err">}</span>
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>quant_config = {
+    &#39;weight_quantize_type&#39;: &#39;abs_max&#39;,
+    &#39;activation_quantize_type&#39;: &#39;moving_average_abs_max&#39;,
+    &#39;weight_bits&#39;: 8,
+    &#39;activation_bits&#39;: 8,
+    &#39;not_quant_pattern&#39;: [&#39;skip_quant&#39;],
+    &#39;quantize_op_types&#39;: [&#39;conv2d&#39;, &#39;depthwise_conv2d&#39;, &#39;mul&#39;],
+    &#39;dtype&#39;: &#39;int8&#39;,
+    &#39;window_size&#39;: 10000,
+    &#39;moving_rate&#39;: 0.9,
+    &#39;quant_weight_only&#39;: False
+}
 </pre></div>
 </td></tr></table>
 
 <h3 id="2-programop">2. 对训练和测试program插入可训练量化op<a class="headerlink" href="#2-programop" title="Permanent link">#</a></h3>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">val_program</span> <span class="o">=</span> <span class="n">quant_aware</span><span class="p">(</span><span class="n">val_program</span><span class="p">,</span> <span class="n">place</span><span class="p">,</span> <span class="n">quant_config</span><span class="p">,</span> <span class="k">scope</span><span class="o">=</span><span class="k">None</span><span class="p">,</span> <span class="n">for_test</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>val_program = quant_aware(val_program, place, quant_config, scope=None, for_test=True)
 
-<span class="n">compiled_train_prog</span> <span class="o">=</span> <span class="n">quant_aware</span><span class="p">(</span><span class="n">train_prog</span><span class="p">,</span> <span class="n">place</span><span class="p">,</span> <span class="n">quant_config</span><span class="p">,</span> <span class="k">scope</span><span class="o">=</span><span class="k">None</span><span class="p">,</span> <span class="n">for_test</span><span class="o">=</span><span class="k">False</span><span class="p">)</span>
+compiled_train_prog = quant_aware(train_prog, place, quant_config, scope=None, for_test=False)
 </pre></div>
 </td></tr></table>
 
@@ -209,14 +209,14 @@
 5
 6
 7
-8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">build_strategy</span> <span class="o">=</span> <span class="n">fluid</span><span class="p">.</span><span class="n">BuildStrategy</span><span class="p">()</span>
-<span class="n">build_strategy</span><span class="p">.</span><span class="n">fuse_all_reduce_ops</span> <span class="o">=</span> <span class="k">False</span>
-<span class="n">build_strategy</span><span class="p">.</span><span class="n">sync_batch_norm</span> <span class="o">=</span> <span class="k">False</span>
-<span class="n">exec_strategy</span> <span class="o">=</span> <span class="n">fluid</span><span class="p">.</span><span class="n">ExecutionStrategy</span><span class="p">()</span>
-<span class="n">compiled_train_prog</span> <span class="o">=</span> <span class="n">compiled_train_prog</span><span class="p">.</span><span class="n">with_data_parallel</span><span class="p">(</span>
-        <span class="n">loss_name</span><span class="o">=</span><span class="n">avg_cost</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">build_strategy</span><span class="o">=</span><span class="n">build_strategy</span><span class="p">,</span>
-        <span class="n">exec_strategy</span><span class="o">=</span><span class="n">exec_strategy</span><span class="p">)</span>
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>build_strategy = fluid.BuildStrategy()
+build_strategy.fuse_all_reduce_ops = False
+build_strategy.sync_batch_norm = False
+exec_strategy = fluid.ExecutionStrategy()
+compiled_train_prog = compiled_train_prog.with_data_parallel(
+        loss_name=avg_cost.name,
+        build_strategy=build_strategy,
+        exec_strategy=exec_strategy)
 </pre></div>
 </td></tr></table>
 
@@ -225,11 +225,11 @@
 2
 3
 4
-5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">float_program</span><span class="p">,</span> <span class="n">int8_program</span> <span class="o">=</span> <span class="k">convert</span><span class="p">(</span><span class="n">val_program</span><span class="p">,</span> 
-                                      <span class="n">place</span><span class="p">,</span>
-                                      <span class="n">quant_config</span><span class="p">,</span>
-                                      <span class="k">scope</span><span class="o">=</span><span class="k">None</span><span class="p">,</span>
-                                      <span class="n">save_int8</span><span class="o">=</span><span class="k">True</span><span class="p">)</span>
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>float_program, int8_program = convert(val_program, 
+                                      place,
+                                      quant_config,
+                                      scope=None,
+                                      save_int8=True)
 </pre></div>
 </td></tr></table>
 
@@ -248,21 +248,21 @@
 12
 13
 14
-15</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nv">fluid</span>.<span class="nv">io</span>.<span class="nv">save_inference_model</span><span class="ss">(</span>
-    <span class="k">dirname</span><span class="o">=</span><span class="nv">float_path</span>,
-    <span class="nv">feeded_var_names</span><span class="o">=</span>[<span class="nv">image</span>.<span class="nv">name</span>],
-    <span class="nv">target_vars</span><span class="o">=</span>[<span class="nv">out</span>], <span class="nv">executor</span><span class="o">=</span><span class="nv">exe</span>,
-    <span class="nv">main_program</span><span class="o">=</span><span class="nv">float_program</span>,
-    <span class="nv">model_filename</span><span class="o">=</span><span class="nv">float_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="s">/model</span><span class="s1">&#39;</span>,
-    <span class="nv">params_filename</span><span class="o">=</span><span class="nv">float_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="s">/params</span><span class="s1">&#39;</span><span class="ss">)</span>
+15</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>fluid.io.save_inference_model(
+    dirname=float_path,
+    feeded_var_names=[image.name],
+    target_vars=[out], executor=exe,
+    main_program=float_program,
+    model_filename=float_path + &#39;/model&#39;,
+    params_filename=float_path + &#39;/params&#39;)
 
-<span class="nv">fluid</span>.<span class="nv">io</span>.<span class="nv">save_inference_model</span><span class="ss">(</span>
-    <span class="k">dirname</span><span class="o">=</span><span class="nv">int8_path</span>,
-    <span class="nv">feeded_var_names</span><span class="o">=</span>[<span class="nv">image</span>.<span class="nv">name</span>],
-    <span class="nv">target_vars</span><span class="o">=</span>[<span class="nv">out</span>], <span class="nv">executor</span><span class="o">=</span><span class="nv">exe</span>,
-    <span class="nv">main_program</span><span class="o">=</span><span class="nv">int8_program</span>,
-    <span class="nv">model_filename</span><span class="o">=</span><span class="nv">int8_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="s">/model</span><span class="s1">&#39;</span>,
-    <span class="nv">params_filename</span><span class="o">=</span><span class="nv">int8_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="s">/params</span><span class="s1">&#39;</span><span class="ss">)</span>
+fluid.io.save_inference_model(
+    dirname=int8_path,
+    feeded_var_names=[image.name],
+    target_vars=[out], executor=exe,
+    main_program=int8_program,
+    model_filename=int8_path + &#39;/model&#39;,
+    params_filename=int8_path + &#39;/params&#39;)
 </pre></div>
 </td></tr></table>
               

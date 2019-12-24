@@ -202,9 +202,9 @@
 <p><strong>params(list<str>):</strong> 需要被裁剪的卷积层的参数的名称列表。可以通过以下方式查看模型中所有参数的名称:
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">for</span> <span class="nv">block</span> <span class="nv">in</span> <span class="nv">program</span>.<span class="nv">blocks</span>:
-    <span class="k">for</span> <span class="nv">param</span> <span class="nv">in</span> <span class="nv">block</span>.<span class="nv">all_parameters</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">param: {}; shape: {}</span><span class="s2">&quot;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">param</span>.<span class="nv">name</span>, <span class="nv">param</span>.<span class="nv">shape</span><span class="ss">))</span>
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">for</span> <span class="nt">block</span> <span class="nt">in</span> <span class="nt">program</span><span class="p">.</span><span class="nc">blocks</span><span class="o">:</span>
+    <span class="nt">for</span> <span class="nt">param</span> <span class="nt">in</span> <span class="nt">block</span><span class="p">.</span><span class="nc">all_parameters</span><span class="o">():</span>
+        <span class="nt">print</span><span class="o">(</span><span class="s2">&quot;param: {}; shape: {}&quot;</span><span class="p">.</span><span class="nc">format</span><span class="o">(</span><span class="nt">param</span><span class="p">.</span><span class="nc">name</span><span class="o">,</span> <span class="nt">param</span><span class="p">.</span><span class="nc">shape</span><span class="o">))</span>
 </pre></div>
 </td></tr></table></p>
 </li>
@@ -404,9 +404,9 @@
 </ul>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">for</span> <span class="nv">block</span> <span class="nv">in</span> <span class="nv">program</span>.<span class="nv">blocks</span>:
-    <span class="k">for</span> <span class="nv">param</span> <span class="nv">in</span> <span class="nv">block</span>.<span class="nv">all_parameters</span><span class="ss">()</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">param: {}; shape: {}</span><span class="s2">&quot;</span>.<span class="nv">format</span><span class="ss">(</span><span class="nv">param</span>.<span class="nv">name</span>, <span class="nv">param</span>.<span class="nv">shape</span><span class="ss">))</span>
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nt">for</span> <span class="nt">block</span> <span class="nt">in</span> <span class="nt">program</span><span class="p">.</span><span class="nc">blocks</span><span class="o">:</span>
+    <span class="nt">for</span> <span class="nt">param</span> <span class="nt">in</span> <span class="nt">block</span><span class="p">.</span><span class="nc">all_parameters</span><span class="o">():</span>
+        <span class="nt">print</span><span class="o">(</span><span class="s2">&quot;param: {}; shape: {}&quot;</span><span class="p">.</span><span class="nc">format</span><span class="o">(</span><span class="nt">param</span><span class="p">.</span><span class="nc">name</span><span class="o">,</span> <span class="nt">param</span><span class="p">.</span><span class="nc">shape</span><span class="o">))</span>
 </pre></div>
 </td></tr></table>
 
@@ -433,15 +433,15 @@
 6
 7
 8
-9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="err">{</span><span class="ss">&quot;weight_0&quot;</span><span class="p">:</span> 
-   <span class="err">{</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">22</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">33</span>
-   <span class="err">}</span><span class="p">,</span>
- <span class="ss">&quot;weight_1&quot;</span><span class="p">:</span>
-   <span class="err">{</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">21</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">4</span>
-   <span class="err">}</span>
-<span class="err">}</span>
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>{&quot;weight_0&quot;: 
+   {0.1: 0.22,
+    0.2: 0.33
+   },
+ &quot;weight_1&quot;:
+   {0.1: 0.21,
+    0.2: 0.4
+   }
+}
 </pre></div>
 </td></tr></table>
 
@@ -653,15 +653,15 @@
 6
 7
 8
-9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="err">{</span><span class="ss">&quot;weight_0&quot;</span><span class="p">:</span> 
-   <span class="err">{</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">22</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">33</span>
-   <span class="err">}</span><span class="p">,</span>
- <span class="ss">&quot;weight_1&quot;</span><span class="p">:</span>
-   <span class="err">{</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">21</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">4</span>
-   <span class="err">}</span>
-<span class="err">}</span>
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>{&quot;weight_0&quot;: 
+   {0.1: 0.22,
+    0.2: 0.33
+   },
+ &quot;weight_1&quot;:
+   {0.1: 0.21,
+    0.2: 0.4
+   }
+}
 </pre></div>
 </td></tr></table>
 

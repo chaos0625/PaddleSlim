@@ -251,16 +251,16 @@ mv text data/
  7
  8
  9
-10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">the</span> <span class="mi">1061396</span>
-<span class="k">of</span> <span class="mi">593677</span>
-<span class="k">and</span> <span class="mi">416629</span>
-<span class="n">one</span> <span class="mi">411764</span>
-<span class="k">in</span> <span class="mi">372201</span>
-<span class="n">a</span> <span class="mi">325873</span>
-<span class="o">&lt;</span><span class="n">UNK</span><span class="o">&gt;</span> <span class="mi">324608</span>
-<span class="k">to</span> <span class="mi">316376</span>
-<span class="n">zero</span> <span class="mi">264975</span>
-<span class="n">nine</span> <span class="mi">250430</span>
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>the 1061396
+of 593677
+and 416629
+one 411764
+in 372201
+a 325873
+&lt;UNK&gt; 324608
+to 316376
+zero 264975
+nine 250430
 </pre></div>
 </td></tr></table></p>
 <p>第一步根据英文语料生成词典，中文语料可以通过修改text_strip方法自定义处理方法。</p>
@@ -289,7 +289,7 @@ mv text data/
 </td></tr></table>
 
 <p>本示例中按照单机多线程训练的命令进行训练，训练完毕后，可看到在当前文件夹下保存模型的路径为:     <code>v1_cpu5_b100_lr1dir</code>, 运行 <code>ls v1_cpu5_b100_lr1dir</code>可看到该文件夹下保存了训练的10个epoch的模型文件。
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">pass</span><span class="o">-</span><span class="mi">0</span>  <span class="n">pass</span><span class="o">-</span><span class="mi">1</span>  <span class="n">pass</span><span class="o">-</span><span class="mi">2</span>  <span class="n">pass</span><span class="o">-</span><span class="mi">3</span>  <span class="n">pass</span><span class="o">-</span><span class="mi">4</span>  <span class="n">pass</span><span class="o">-</span><span class="mi">5</span>  <span class="n">pass</span><span class="o">-</span><span class="mi">6</span>  <span class="n">pass</span><span class="o">-</span><span class="mi">7</span>  <span class="n">pass</span><span class="o">-</span><span class="mi">8</span>  <span class="n">pass</span><span class="o">-</span><span class="mi">9</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>pass-0  pass-1  pass-2  pass-3  pass-4  pass-5  pass-6  pass-7  pass-8  pass-9
 </pre></div>
 </td></tr></table></p>
 <h3 id="_5">预测<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
@@ -330,28 +330,28 @@ wget https://paddlerec.bj.bcebos.com/word2vec/test_mid_dir.tar
 19
 20
 21
-22</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="p">(</span><span class="s1">&#39;start index: &#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39; last_index:&#39;</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-<span class="p">(</span><span class="s1">&#39;vocab_size:&#39;</span><span class="p">,</span> <span class="mi">63642</span><span class="p">)</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">249</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">0</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">014</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">590</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">1</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">033</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">982</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">2</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">055</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">1338</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">3</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">075</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">1653</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">4</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">093</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">1914</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">5</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">107</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">2204</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">6</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">124</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">2416</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">7</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">136</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">2606</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">8</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">146</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">2722</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">9</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">153</span>
+22</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>(&#39;start index: &#39;, 0, &#39; last_index:&#39;, 9)
+(&#39;vocab_size:&#39;, 63642)
+step:1 249
+epoch:0          acc:0.014
+step:1 590
+epoch:1          acc:0.033
+step:1 982
+epoch:2          acc:0.055
+step:1 1338
+epoch:3          acc:0.075
+step:1 1653
+epoch:4          acc:0.093
+step:1 1914
+epoch:5          acc:0.107
+step:1 2204
+epoch:6          acc:0.124
+step:1 2416
+epoch:7          acc:0.136
+step:1 2606
+epoch:8          acc:0.146
+step:1 2722
+epoch:9          acc:0.153
 </pre></div>
 </td></tr></table></p>
 <h2 id="skip-gramword2vector_1">量化<code>基于skip-gram的word2vector模型</code><a class="headerlink" href="#skip-gramword2vector_1" title="Permanent link">#</a></h2>
@@ -359,10 +359,10 @@ wget https://paddlerec.bj.bcebos.com/word2vec/test_mid_dir.tar
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
 3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="err">{</span>
-        <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span>
-        <span class="err">}</span>
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>config = {
+        &#39;params_name&#39;: &#39;emb&#39;,
+        &#39;quantize_type&#39;: &#39;abs_max&#39;
+        }
 </pre></div>
 </td></tr></table></p>
 <p>运行命令为：</p>
@@ -402,38 +402,38 @@ wget https://paddlerec.bj.bcebos.com/word2vec/test_mid_dir.tar
 29
 30
 31
-32</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="p">(</span><span class="s1">&#39;start index: &#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39; last_index:&#39;</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-<span class="p">(</span><span class="s1">&#39;vocab_size:&#39;</span><span class="p">,</span> <span class="mi">63642</span><span class="p">)</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">253</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">0</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">014</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">586</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">1</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">033</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">970</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">2</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">054</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">1364</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">3</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">077</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">1642</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">4</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">092</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">1936</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">5</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">109</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">2216</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">6</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">124</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">2419</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">7</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">136</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">2603</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">8</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">146</span>
-<span class="n">quant_embedding</span> <span class="n">config</span> <span class="err">{</span><span class="s1">&#39;quantize_type&#39;</span><span class="p">:</span> <span class="s1">&#39;abs_max&#39;</span><span class="p">,</span> <span class="s1">&#39;params_name&#39;</span><span class="p">:</span> <span class="s1">&#39;emb&#39;</span><span class="p">,</span> <span class="s1">&#39;quantize_bits&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="err">}</span>
-<span class="n">step</span><span class="p">:</span><span class="mi">1</span> <span class="mi">2719</span>
-<span class="n">epoch</span><span class="p">:</span><span class="mi">9</span>          <span class="n">acc</span><span class="p">:</span><span class="mi">0</span><span class="p">.</span><span class="mi">153</span>
+32</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>(&#39;start index: &#39;, 0, &#39; last_index:&#39;, 9)
+(&#39;vocab_size:&#39;, 63642)
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 253
+epoch:0          acc:0.014
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 586
+epoch:1          acc:0.033
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 970
+epoch:2          acc:0.054
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 1364
+epoch:3          acc:0.077
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 1642
+epoch:4          acc:0.092
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 1936
+epoch:5          acc:0.109
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 2216
+epoch:6          acc:0.124
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 2419
+epoch:7          acc:0.136
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 2603
+epoch:8          acc:0.146
+quant_embedding config {&#39;quantize_type&#39;: &#39;abs_max&#39;, &#39;params_name&#39;: &#39;emb&#39;, &#39;quantize_bits&#39;: 8, &#39;dtype&#39;: &#39;int8&#39;}
+step:1 2719
+epoch:9          acc:0.153
 </pre></div>
 </td></tr></table>
 

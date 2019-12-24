@@ -184,25 +184,25 @@
 17
 18
 19
-20</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nv">quant_config_default</span> <span class="o">=</span> {
-    <span class="s1">&#39;</span><span class="s">weight_quantize_type</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">abs_max</span><span class="s1">&#39;</span>,
-    <span class="s1">&#39;</span><span class="s">activation_quantize_type</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">abs_max</span><span class="s1">&#39;</span>,
-    <span class="s1">&#39;</span><span class="s">weight_bits</span><span class="s1">&#39;</span>: <span class="mi">8</span>,
-    <span class="s1">&#39;</span><span class="s">activation_bits</span><span class="s1">&#39;</span>: <span class="mi">8</span>,
-    # <span class="nv">ops</span> <span class="nv">of</span> <span class="nv">name_scope</span> <span class="nv">in</span> <span class="nv">not_quant_pattern</span> <span class="nv">list</span>, <span class="nv">will</span> <span class="nv">not</span> <span class="nv">be</span> <span class="nv">quantized</span>
-    <span class="s1">&#39;</span><span class="s">not_quant_pattern</span><span class="s1">&#39;</span>: [<span class="s1">&#39;</span><span class="s">skip_quant</span><span class="s1">&#39;</span>],
-    # <span class="nv">ops</span> <span class="nv">of</span> <span class="nv">type</span> <span class="nv">in</span> <span class="nv">quantize_op_types</span>, <span class="nv">will</span> <span class="nv">be</span> <span class="nv">quantized</span>
-    <span class="s1">&#39;</span><span class="s">quantize_op_types</span><span class="s1">&#39;</span>:
-    [<span class="s1">&#39;</span><span class="s">conv2d</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">depthwise_conv2d</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">mul</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">elementwise_add</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">pool2d</span><span class="s1">&#39;</span>],
-    # <span class="nv">data</span> <span class="nv">type</span> <span class="nv">after</span> <span class="nv">quantization</span>, <span class="nv">such</span> <span class="nv">as</span> <span class="s1">&#39;</span><span class="s">uint8</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">int8</span><span class="s1">&#39;</span>, <span class="nv">etc</span>. <span class="nv">default</span> <span class="nv">is</span> <span class="s1">&#39;</span><span class="s">int8</span><span class="s1">&#39;</span>
-    <span class="s1">&#39;</span><span class="s">dtype</span><span class="s1">&#39;</span>: <span class="s1">&#39;</span><span class="s">int8</span><span class="s1">&#39;</span>,
-    # <span class="nv">window</span> <span class="nv">size</span> <span class="k">for</span> <span class="s1">&#39;</span><span class="s">range_abs_max</span><span class="s1">&#39;</span> <span class="nv">quantization</span>. <span class="nv">defaulf</span> <span class="nv">is</span> <span class="mi">10000</span>
-    <span class="s1">&#39;</span><span class="s">window_size</span><span class="s1">&#39;</span>: <span class="mi">10000</span>,
-    # <span class="nv">The</span> <span class="nv">decay</span> <span class="nv">coefficient</span> <span class="nv">of</span> <span class="nv">moving</span> <span class="nv">average</span>, <span class="nv">default</span> <span class="nv">is</span> <span class="mi">0</span>.<span class="mi">9</span>
-    <span class="s1">&#39;</span><span class="s">moving_rate</span><span class="s1">&#39;</span>: <span class="mi">0</span>.<span class="mi">9</span>,
-    # <span class="k">if</span> <span class="nv">set</span> <span class="nv">quant_weight_only</span> <span class="nv">True</span>, <span class="k">then</span> <span class="nv">only</span> <span class="nv">quantize</span> <span class="nv">parameters</span> <span class="nv">of</span> <span class="nv">layers</span> <span class="nv">which</span> <span class="nv">need</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">quantized</span>,
-    # <span class="nv">and</span> <span class="nv">activations</span> <span class="nv">will</span> <span class="nv">not</span> <span class="nv">be</span> <span class="nv">quantized</span>.
-    <span class="s1">&#39;</span><span class="s">quant_weight_only</span><span class="s1">&#39;</span>: <span class="nv">False</span>
+20</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>quant_config_default = {
+    &#39;weight_quantize_type&#39;: &#39;abs_max&#39;,
+    &#39;activation_quantize_type&#39;: &#39;abs_max&#39;,
+    &#39;weight_bits&#39;: 8,
+    &#39;activation_bits&#39;: 8,
+    # ops of name_scope in not_quant_pattern list, will not be quantized
+    &#39;not_quant_pattern&#39;: [&#39;skip_quant&#39;],
+    # ops of type in quantize_op_types, will be quantized
+    &#39;quantize_op_types&#39;:
+    [&#39;conv2d&#39;, &#39;depthwise_conv2d&#39;, &#39;mul&#39;, &#39;elementwise_add&#39;, &#39;pool2d&#39;],
+    # data type after quantization, such as &#39;uint8&#39;, &#39;int8&#39;, etc. default is &#39;int8&#39;
+    &#39;dtype&#39;: &#39;int8&#39;,
+    # window size for &#39;range_abs_max&#39; quantization. defaulf is 10000
+    &#39;window_size&#39;: 10000,
+    # The decay coefficient of moving average, default is 0.9
+    &#39;moving_rate&#39;: 0.9,
+    # if set quant_weight_only True, then only quantize parameters of layers which need to be quantized,
+    # and activations will not be quantized.
+    &#39;quant_weight_only&#39;: False
 }
 </pre></div>
 </td></tr></table>
@@ -348,17 +348,17 @@
  8
  9
 10
-11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">paddleslim</span><span class="p">.</span><span class="n">quant</span><span class="p">.</span><span class="n">quant_post</span><span class="p">(</span><span class="n">executor</span><span class="p">,</span>
-           <span class="n">model_dir</span><span class="p">,</span>
-           <span class="n">quantize_model_path</span><span class="p">,</span>
-           <span class="n">sample_generator</span><span class="p">,</span>
-           <span class="n">model_filename</span><span class="o">=</span><span class="k">None</span><span class="p">,</span>
-           <span class="n">params_filename</span><span class="o">=</span><span class="k">None</span><span class="p">,</span>
-           <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
-           <span class="n">batch_nums</span><span class="o">=</span><span class="k">None</span><span class="p">,</span>
-           <span class="k">scope</span><span class="o">=</span><span class="k">None</span><span class="p">,</span>
-           <span class="n">algo</span><span class="o">=</span><span class="s1">&#39;KL&#39;</span><span class="p">,</span>
-           <span class="n">quantizable_op_type</span><span class="o">=</span><span class="p">[</span><span class="ss">&quot;conv2d&quot;</span><span class="p">,</span> <span class="ss">&quot;depthwise_conv2d&quot;</span><span class="p">,</span> <span class="ss">&quot;mul&quot;</span><span class="p">])</span>
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>paddleslim.quant.quant_post(executor,
+           model_dir,
+           quantize_model_path,
+           sample_generator,
+           model_filename=None,
+           params_filename=None,
+           batch_size=16,
+           batch_nums=None,
+           scope=None,
+           algo=&#39;KL&#39;,
+           quantizable_op_type=[&quot;conv2d&quot;, &quot;depthwise_conv2d&quot;, &quot;mul&quot;])
 </pre></div>
 </td></tr></table>
 对保存在<code>${model_dir}</code>下的模型进行量化，使用<code>sample_generator</code>的数据进行参数校正。</p>
@@ -419,7 +419,7 @@
 </td></tr></table>
 更详细的用法请参考 <a href='../../demo/quant/quant_post/README.md'>离线量化demo</a>。</p>
 <h2 id="embeddingapi">Embedding量化API<a class="headerlink" href="#embeddingapi" title="Permanent link">#</a></h2>
-<p><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">paddleslim</span><span class="p">.</span><span class="n">quant</span><span class="p">.</span><span class="n">quant_embedding</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">place</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="k">scope</span><span class="o">=</span><span class="k">None</span><span class="p">)</span>
+<p><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>paddleslim.quant.quant_embedding(program, place, config, scope=None)
 </pre></div>
 </td></tr></table>
 对<code>Embedding</code>参数进行量化。</p>

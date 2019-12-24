@@ -164,7 +164,7 @@
 <p>请参考。</p>
 <h3 id="1">1. 配置搜索空间<a class="headerlink" href="#1" title="Permanent link">#</a></h3>
 <p>详细的搜索空间配置可以参考<a href='../../../paddleslim/nas/nas_api.md'>神经网络搜索API文档</a>。
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;MobileNetV2Space&#39;</span><span class="p">)]</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>config = [(&#39;MobileNetV2Space&#39;)]
 </pre></div>
 </td></tr></table></p>
 <h3 id="2-sanas">2. 利用搜索空间初始化SANAS实例<a class="headerlink" href="#2-sanas" title="Permanent link">#</a></h3>
@@ -189,7 +189,7 @@
 </td></tr></table>
 
 <h3 id="3-nas">3. 根据实例化的NAS得到当前的网络结构<a class="headerlink" href="#3-nas" title="Permanent link">#</a></h3>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">archs</span> <span class="o">=</span> <span class="n">sa_nas</span><span class="p">.</span><span class="n">next_archs</span><span class="p">()</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>archs = sa_nas.next_archs()
 </pre></div>
 </td></tr></table>
 
@@ -248,7 +248,7 @@
 </td></tr></table>
 
 <h3 id="6-score">6. 回传score<a class="headerlink" href="#6-score" title="Permanent link">#</a></h3>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">sa_nas</span><span class="p">.</span><span class="n">reward</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>sa_nas.reward(score)
 </pre></div>
 </td></tr></table>
               
