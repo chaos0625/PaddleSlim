@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Demo guide - PaddleSlim Docs</title>
+  <title>Sensitivity demo - PaddleSlim Docs</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Demo guide";
-    var mkdocs_page_input_path = "tutorials/demo_guide.md";
+    var mkdocs_page_name = "Sensitivity demo";
+    var mkdocs_page_input_path = "tutorials/sensitivity_demo.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -138,10 +138,10 @@
     
       
     
-    <li>Demo guide</li>
+    <li>Sensitivity demo</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/PaddlePaddle/PaddleSlim/edit/master/docs/tutorials/demo_guide.md"
+        <a href="https://github.com/PaddlePaddle/PaddleSlim/edit/master/docs/tutorials/sensitivity_demo.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -151,16 +151,85 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="_1"><a href="../demo/distillation/distillation_demo.py">蒸馏</a><a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
-<p>蒸馏demo默认使用ResNet50作为teacher网络，MobileNet作为student网络，此外还支持将teacher和student换成<a href="../demo/models">models目录</a>支持的任意模型。</p>
-<p>demo中对teahcer模型和student模型的一层特征图添加了l2_loss的蒸馏损失函数，使用时也可根据需要选择fsp_loss, soft_label_loss以及自定义的loss函数。</p>
-<p>训练默认使用的是cifar10数据集，piecewise_decay学习率衰减策略，momentum优化器进行120轮蒸馏训练。使用者也可以简单地用args参数切换为使用ImageNet数据集，cosine_decay学习率衰减策略等其他训练配置。</p>
-<h2 id="_2">量化<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
-<h3 id="demo"><a href="../quant_aware_demo/">量化训练demo文档</a><a class="headerlink" href="#demo" title="Permanent link">#</a></h3>
-<h3 id="demo_1"><a href="../quant_post_demo/">离线量化demo文档</a><a class="headerlink" href="#demo_1" title="Permanent link">#</a></h3>
-<h3 id="embeddingdemo"><a href="../quant_embedding_demo/">Embedding量化demo文档</a><a class="headerlink" href="#embeddingdemo" title="Permanent link">#</a></h3>
-<h2 id="nas">NAS<a class="headerlink" href="#nas" title="Permanent link">#</a></h2>
-<h3 id="nas_1"><a href="../nas_demo/">NAS示例</a><a class="headerlink" href="#nas_1" title="Permanent link">#</a></h3>
+                <p>该示例介绍如何分析卷积网络中各卷积层的敏感度，以及如何根据计算出的敏感度选择一组合适的剪裁率。
+该示例默认会自动下载并使用MNIST数据。支持以下模型：</p>
+<ul>
+<li>MobileNetV1</li>
+<li>MobileNetV2</li>
+<li>ResNet50</li>
+</ul>
+<h2 id="1">1. 接口介绍<a class="headerlink" href="#1" title="Permanent link">#</a></h2>
+<p>该示例涉及以下接口：</p>
+<ul>
+<li><a href="https://paddlepaddle.github.io/PaddleSlim/api/prune_api/#sensitivity">paddleslim.prune.sensitivity</a></li>
+<li><a href="https://paddlepaddle.github.io/PaddleSlim/api/prune_api/#merge_sensitive">paddleslim.prune.merge_sensitive</a></li>
+<li><a href="https://paddlepaddle.github.io/PaddleSlim/api/prune_api/#get_ratios_by_losssensitivities-loss">paddleslim.prune.get_ratios_by_loss</a></li>
+</ul>
+<h2 id="2">2. 运行示例<a class="headerlink" href="#2" title="Permanent link">#</a></h2>
+<p>在路径<code>PaddleSlim/demo/sensitive</code>下执行以下代码运行示例：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>export CUDA_VISIBLE_DEVICES=0
+python train.py --model &quot;MobileNetV1&quot;
+</pre></div>
+</td></tr></table>
+
+<p>通过<code>python train.py --help</code>查看更多选项。</p>
+<h2 id="3">3. 重要步骤说明<a class="headerlink" href="#3" title="Permanent link">#</a></h2>
+<h3 id="31">3.1 计算敏感度<a class="headerlink" href="#31" title="Permanent link">#</a></h3>
+<p>计算敏感度之前，用户需要搭建好用于测试的网络，以及实现评估模型精度的回调函数。</p>
+<p>调用<code>paddleslim.prune.sensitivity</code>接口计算敏感度。敏感度信息会追加到<code>sensitivities_file</code>选项所指定的文件中，如果需要重新计算敏感度，需要先删除<code>sensitivities_file</code>文件。</p>
+<p>如果模型评估速度较慢，可以通过多进程的方式加速敏感度计算过程。比如在进程1中设置<code>pruned_ratios=[0.1, 0.2, 0.3, 0.4]</code>，并将敏感度信息存放在文件<code>sensitivities_0.data</code>中，然后在进程2中设置<code>pruned_ratios=[0.5, 0.6, 0.7]</code>，并将敏感度信息存储在文件<code>sensitivities_1.data</code>中。这样每个进程只会计算指定剪切率下的敏感度信息。多进程可以运行在单机多卡，或多机多卡。</p>
+<p>代码如下：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># 进程1
+sensitivity(
+    val_program,
+    place,
+    params,
+    test,
+    sensitivities_file=&quot;sensitivities_0.data&quot;,
+    pruned_ratios=[0.1, 0.2, 0.3, 0.4])
+</pre></div>
+</td></tr></table>
+
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># 进程2
+sensitivity(
+    val_program,
+    place,
+    params,
+    test,
+    sensitivities_file=&quot;sensitivities_1.data&quot;,
+    pruned_ratios=[0.5, 0.6, 0.7])
+</pre></div>
+</td></tr></table>
+
+<h3 id="32">3.2 合并敏感度<a class="headerlink" href="#32" title="Permanent link">#</a></h3>
+<p>如果用户通过上一节多进程的方式生成了多个存储敏感度信息的文件，可以通过<code>paddleslim.prune.merge_sensitive</code>将其合并，合并后的敏感度信息存储在一个<code>dict</code>中。代码如下：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>sens = merge_sensitive([&quot;./sensitivities_0.data&quot;, &quot;./sensitivities_1.data&quot;])
+</pre></div>
+</td></tr></table>
+
+<h3 id="33">3.3 计算剪裁率<a class="headerlink" href="#33" title="Permanent link">#</a></h3>
+<p>调用<code>paddleslim.prune.get_ratios_by_loss</code>接口计算一组剪裁率。</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>ratios = get_ratios_by_loss(sens, 0.01)
+</pre></div>
+</td></tr></table>
+
+<p>其中，<code>0.01</code>为一个阈值，对于任意卷积层，其剪裁率为使精度损失低于阈值<code>0.01</code>的最大剪裁率。</p>
+<p>用户在计算出一组剪裁率之后可以通过接口<code>paddleslim.prune.Pruner</code>剪裁网络，并用接口<code>paddleslim.analysis.flops</code>计算<code>FLOPs</code>。如果<code>FLOPs</code>不满足要求，调整阈值重新计算出一组剪裁率。</p>
               
             </div>
           </div>
